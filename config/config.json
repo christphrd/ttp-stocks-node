@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
+    "username": "nodejs",
     "password": null,
-    "database": "database_development",
+    "database": "node_stocks_ttp_development",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "test": {
-    "username": "root",
+    "username": "nodejs",
     "password": null,
-    "database": "database_test",
+    "database": "node_stocks_ttp_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   },
   "production": {
-    "username": "root",
+    "username": "nodejs",
     "password": null,
-    "database": "database_production",
+    "database": "node_stocks_ttp_production",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "postgres"
   }
 }
