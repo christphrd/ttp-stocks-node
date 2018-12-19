@@ -1,22 +1,22 @@
-{
+module.exports = {
   "development": {
     "username": "nodejs",
     "password": null,
-    "database": "node_stocks_ttp_development",
+    "database": "ttp-stocks-node_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
     "username": "nodejs",
     "password": null,
-    "database": "node_stocks_ttp_test",
+    "database": "ttp-stocks-node_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
     "username": "nodejs",
     "password": null,
-    "database": "node_stocks_ttp_production",
+    "database": "ttp-stocks-node_production",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

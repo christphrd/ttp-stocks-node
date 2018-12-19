@@ -14,10 +14,11 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      balance: {
+      account_balance: {
+        defaultValue: 5000.00,
         type: Sequelize.DECIMAL
       },
-      passwordDigest: {
+      password_digest: {
         type: Sequelize.STRING
       },
       createdAt: {
