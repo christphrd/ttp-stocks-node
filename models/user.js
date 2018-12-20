@@ -1,13 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define('User', 
-  {
+  const User = sequelize.define('User', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     account_balance: DataTypes.DECIMAL,
     password_digest: DataTypes.STRING
-  }, 
-  {
+  }, {
     indexes: [
       // Create a unique index on email
       {
