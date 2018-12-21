@@ -15,8 +15,8 @@ router.post('/register', async function(req, res, next) {
 
   newAcc.save()
   .then(saved => {
-    let json = { status: 201, message: "Successfully created.", user: { email: saved.email, name: saved.name, account_balance: saved.account_balance }, token: null }
-    res.json(json)
+    let json = { status: 201, message: "Successfully created.", user: { email: saved.email, name: saved.name, account_balance: saved.account_balance }, token: saved.encodeToken() }
+    res.status(201).json(json)
   })
   .catch(err => res.status(400).json({errors: err.errors[0].message}))
 })

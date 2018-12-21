@@ -3,6 +3,9 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+const jwt = require('jsonwebtoken');
+const secret = 'cdiep';
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     name: DataTypes.STRING,
@@ -24,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
       },
     ]
   });
+  User.associate = function(models) {
+    // associations can be defined here
+  };
   User.newAccount = async function(data) {
     if (!data.password_confirmation || data.password === data.password_confirmation) {
       let hash = await bcrypt.hashSync(data.password, saltRounds);
@@ -35,8 +41,10 @@ module.exports = (sequelize, DataTypes) => {
       throw new Error("Password and confirmation does not match.")
     }
   };
-  User.associate = function(models) {
-    // associations can be defined here
+  User.prototype.encodeToken = function() {
+    const payload = {email: this.email};
+    const token = jwt.sign(payload, secret);
+    return token
   };
   return User;
 };
