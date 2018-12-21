@@ -1,4 +1,8 @@
 'use strict';
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     name: DataTypes.STRING,
@@ -14,6 +18,17 @@ module.exports = (sequelize, DataTypes) => {
       },
     ]
   });
+  User.newAccount = async function(data) {
+    if (!data.password_confirmation || data.password === data.password_confirmation) {
+      let hash = await bcrypt.hashSync(data.password, saltRounds);
+
+      return User.create({name: data.name, email: data.email, password_digest: hash})
+    };
+
+    if (data.password !== data.password_confirmation) {
+      throw new Error("Password and confirmation do not match.")
+    }
+  };
   User.associate = function(models) {
     // associations can be defined here
   };
