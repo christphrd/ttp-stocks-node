@@ -6,8 +6,14 @@ const saltRounds = 10;
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    account_balance: DataTypes.DECIMAL,
+    email: {
+      unique: true,
+      type: DataTypes.STRING
+    },
+    account_balance: {
+      defaultValue: 5000.00,
+      type: DataTypes.DECIMAL
+    },
     password_digest: DataTypes.STRING
   }, {
     indexes: [
@@ -22,11 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     if (!data.password_confirmation || data.password === data.password_confirmation) {
       let hash = await bcrypt.hashSync(data.password, saltRounds);
 
-      return User.create({name: data.name, email: data.email, password_digest: hash})
+      return User.build({name: data.name, email: data.email, password_digest: hash})
     };
 
     if (data.password !== data.password_confirmation) {
-      throw new Error("Password and confirmation do not match.")
+      throw new Error("Password and confirmation does not match.")
     }
   };
   User.associate = function(models) {
