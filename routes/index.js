@@ -9,8 +9,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.options('/register', cors()) // enable pre-flight request for POST request
-router.post('/register', async function(req, res, next) {
+router.options('/register', cors()) // enable pre-flight request for POST request with custom headers
+router.post('/register', cors(), async function(req, res, next) {
   let newAcc = await models.User.newAccount(req.body);
 
   newAcc.save()
