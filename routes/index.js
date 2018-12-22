@@ -6,7 +6,6 @@ let usersRouter = require('./users');
 let transactionsRouter = require('./transactions');
 
 const User = require('../models/index.js').User;
-const Transaction = require('../models/index.js').Transaction;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
