@@ -39,6 +39,17 @@ router.post('/signin', cors(), async function (req, res, next) {
 });
 
 /* CURRENT_USER endpoint */
+router.options('/current_user', cors())
+router.get('/current_user', cors(), async function (req, res, next) {
+  let token = req.headers.authorization.split(" ")[1];
+  let currentUser = await User.decodeToken(token);
+  if (currentUser) {
+    let json = { status: 200, message: "OK", user: { email: currentUser.email, name: currentUser.name, account_balance: currentUser.account_balance } };
+    res.status(200).json(json)
+  } else {
+    res.status(401).json({ message: "Please sign in." })
+  }
+});
 
 router.use('/users', usersRouter);
 

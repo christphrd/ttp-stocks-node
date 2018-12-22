@@ -48,6 +48,12 @@ module.exports = (sequelize, DataTypes) => {
 
     return (match) ? user : false
   };
+  User.decodeToken = async function(token) {
+    const decoded = jwt.verify(token, secret);
+    const current = await User.findOne({where: {email: decoded.email}});
+
+    return (current) ? current : false
+  };
   User.prototype.encodeToken = function() {
     const payload = {email: this.email};
     const token = jwt.sign(payload, secret);
