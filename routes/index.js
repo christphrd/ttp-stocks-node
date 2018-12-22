@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var cors = require('cors');
 
-var usersRouter = require('./users');
+let usersRouter = require('./users');
+let transactionsRouter = require('./transactions');
 
 const User = require('../models/index.js').User;
+const Transaction = require('../models/index.js').Transaction;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -50,6 +52,20 @@ router.get('/current_user', cors(), async function (req, res, next) {
     res.status(401).json({ message: "Please sign in." })
   }
 });
+
+/* TRANSACTIONS endpoint */
+router.use('/transactions', transactionsRouter);
+
+/* AUDIT endpoint */
+router.options('/audit', cors())
+router.get('/audit', cors(), async function(req, res, next) {
+  let token = req.headers.authorization.split(" ")[1];
+  let currentUser = await User.decodeToken(token);
+
+  let transactionsList = await currentUser.getTransactions();
+
+  res.status(201).json(transactionsList.reverse())
+})
 
 router.use('/users', usersRouter);
 
