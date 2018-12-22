@@ -25,10 +25,12 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         fields: ['email']
       },
-    ]
+    ],
+    underscored: true
   });
   User.associate = function(models) {
     // associations can be defined here
+    models.User.hasMany(models.Transaction)
   };
   User.newAccount = async function(data) {
     if (!data.password_confirmation || data.password === data.password_confirmation) {
