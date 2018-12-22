@@ -44,13 +44,9 @@ module.exports = (sequelize, DataTypes) => {
   User.checkUser = async function(email, password) {
     //... fetch user from a db etc.
     const user = await User.findOne({where: {email: email}});
-
     const match = await bcrypt.compare(password, user.password_digest);
 
-    if (match) {
-      //login
-      return user
-    }
+    return (match) ? user : false
   };
   User.prototype.encodeToken = function() {
     const payload = {email: this.email};
