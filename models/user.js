@@ -41,6 +41,17 @@ module.exports = (sequelize, DataTypes) => {
       throw new Error("Password and confirmation does not match.")
     }
   };
+  User.checkUser = async function(email, password) {
+    //... fetch user from a db etc.
+    const user = await User.findOne({where: {email: email}});
+
+    const match = await bcrypt.compare(password, user.password_digest);
+
+    if (match) {
+      //login
+      return user
+    }
+  };
   User.prototype.encodeToken = function() {
     const payload = {email: this.email};
     const token = jwt.sign(payload, secret);

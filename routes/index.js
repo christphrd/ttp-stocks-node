@@ -9,6 +9,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* REGISTER endpoint */
 router.options('/register', cors()) // enable pre-flight request for POST request with custom headers
 router.post('/register', cors(), async function(req, res, next) {
   let newAcc = await models.User.newAccount(req.body);
@@ -19,6 +20,8 @@ router.post('/register', cors(), async function(req, res, next) {
     res.status(201).json(json)
   })
   .catch(err => res.status(400).json({errors: err.errors[0].message}))
-})
+});
+
+/* SIGNIN endpoint */
 
 module.exports = router;
