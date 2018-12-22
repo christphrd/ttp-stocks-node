@@ -57,7 +57,7 @@ router.get('/current_user', cors(), async function (req, res, next) {
 router.use('/transactions', transactionsRouter);
 
 /* AUDIT endpoint */
-router.options('/audit', cors())
+router.options('/audit', cors());
 router.get('/audit', cors(), async function(req, res, next) {
   let token = req.headers.authorization.split(" ")[1];
   let currentUser = await User.decodeToken(token);
@@ -65,7 +65,18 @@ router.get('/audit', cors(), async function(req, res, next) {
   let transactionsList = await currentUser.getTransactions();
 
   res.status(201).json(transactionsList.reverse())
-})
+});
+
+/* PORTFOLIO endpoint */
+router.options('/portfolio', cors());
+router.get('/portfolio', cors(), async function (req, res, next) {
+  let token = req.headers.authorization.split(" ")[1];
+  let currentUser = await User.decodeToken(token);
+
+  let portfolioList = await currentUser.portfolio();
+
+  res.status(201).json(portfolioList)
+});
 
 router.use('/users', usersRouter);
 

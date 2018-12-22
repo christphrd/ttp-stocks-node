@@ -61,5 +61,23 @@ module.exports = (sequelize, DataTypes) => {
     const token = jwt.sign(payload, secret);
     return token
   };
+  User.prototype.portfolio = async function() {
+    let portfolioHash = {};
+    let transactions = await this.getTransactions();
+    for (let i = 0; i < transactions.length; i++) {
+      if (!!portfolioHash[transactions[i].ticker]) {
+        portfolioHash[transactions[i].ticker] += transactions[i].quantity
+      } else {
+        portfolioHash[transactions[i].ticker] = transactions[i].quantity
+      }
+    };
+
+    let portfolio = [];
+    for (let ticker in portfolioHash) {
+      let stock = {ticker: ticker, qty: portfolioHash[ticker]}
+      portfolio.push(stock)
+    }
+    return portfolio
+  }
   return User;
 };
