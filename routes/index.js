@@ -77,6 +77,6 @@ router.get('/portfolio', cors(), async function (req, res, next) {
   res.status(201).json(portfolioList)
 });
 
-router.use('/users', usersRouter);
+// router.use('/users', usersRouter);
 
 module.exports = router;
