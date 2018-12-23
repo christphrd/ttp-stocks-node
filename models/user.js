@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: {
       unique: true,
+      validate: {isEmail: true},
       type: DataTypes.STRING
     },
     account_balance: {
