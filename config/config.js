@@ -14,7 +14,7 @@ module.exports = {
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL"
+    "use_env_variable": "DATABASE_URL",
     "username": "nodejs",
     "password": null,
     "database": "ttp-stocks-node_production",
